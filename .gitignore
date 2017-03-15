@@ -51,7 +51,7 @@ distribute-*.tar.gz
 .coverage
 cover
 htmlcov
-
+.ipynb_checkpoints
 # Mac OSX
 .DS_Store
 
