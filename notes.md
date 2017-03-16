@@ -32,15 +32,16 @@ In addition to HEALPix, there are several other tools available for sky tessella
 -
 Before moving on to the coordinating systems used by HiPS, let's briefly go through some common measures using in astronomical studies.
 
-#####**RA / DEC**#####
+##### **RA / DEC** #####
 RA (right ascension) and DEC (declination) are the longitudes and latitudes of the sky. RA corresponds to east/west direction (like longitude), while Dec measures north/south directions, like latitude.
 
-#####**WCS**#####
+##### **WCS** #####
 World coordinate system (WCS) comprises of latitude and longitude for describing a location on the Earth.
 
-#####**FITS WCS**#####
+##### **FITS WCS** #####
 The FITS "World Coordinate System" (WCS) standard defines keywords and usage that provide for the description of astronomical coordinate systems in a FITS image header. This is extensively used in HEALPix as it data from a FITS file.
-#####**FITS**#####
+
+##### **FITS** #####
 Flexible Image Transport System (FITS) is a digital file format useful for storage, transmission and processing of scientific and other images, used by default by many sky tessellation softwares - in our case, HEALPix.
 
 HEALPix header files can contain the following three letters, each depicting the coordinate system being used:
@@ -49,19 +50,19 @@ HEALPix header files can contain the following three letters, each depicting the
 * **G**:Galactic
 * **E**:Ecliptic (not mentioned in HiPS paper)
 
-###**International Celestial Reference System**###
+### **International Celestial Reference System **###
 
 ICRS is the current standard celestial reference system adopted by the International Astronomical Union (IAU). Its **origin is at the barycenter of the Solar System**, with axes that are intended to be "fixed" with respect to space - this is referred to as International Celestial Reference Frame (ICRF). ICRS coordinates are approximately the same as equatorial coordinates:
 
-###**Fifth Fundamental Catalogue**###
+### **Fifth Fundamental Catalogue **###
 
 FK5 is a part of the "Catalogue of Fundamental Stars" which provides a series of six astrometric catalogues of high precision positional data for a small selection of stars to define a celestial reference frame. J2000 refers to the instant of 12pm (midday) on 1st January 2000. FK5, publish in 1991, added 3,117 new stars.
 
-###**Galactic coordinate system**###
+### **Galactic coordinate system **###
 
 The galactic coordinate system is a celestial coordinate system in spherical coordinates, with its **origin at the Sun**, the primary direction aligned with the approximate center of the Milky Way galaxy, and the fundamental plane parallel to an approximation of the galactic plane but offset to its north. GCS has its own Galactic longitude and Galactic latitude.
 
-###**Ecliptic coordinate system**###
+### **Ecliptic coordinate system **###
 
 A celestial coordinate system commonly used for representing the positions and orbits of Solar System objects. The system's **origin can be either the center of the Sun or the center of the Earth**, its primary direction is towards the vernal (northbound) equinox, and it has a right-handed convention.
 
