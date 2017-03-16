@@ -65,7 +65,24 @@ The galactic coordinate system is a celestial coordinate system in spherical coo
 
 A celestial coordinate system commonly used for representing the positions and orbits of Solar System objects. The system's **origin can be either the center of the Sun or the center of the Earth**, its primary direction is towards the vernal (northbound) equinox, and it has a right-handed convention.
 
+**HiPS pixels**
+-
+Using the header *hips_pixel_bitpix* with the format -64, -32, 8, 16, 32, 64 (FITS convention) the pixels are stored in BITPIX code. The multi-resolution representation of the original images provides the basis for visualizing data in a progressive way as the pixels that are required for a given view can be accessed from the pre-computed HEALPix maps, and the nested pixel numbering scheme provides a simple hierarchical
+indexing system that encodes pixel inheritance across the diﬀer-
+ent orders.
+
+**HiPS tiles**
+-
+As it is cumbersome to transfer each pixel (essentially a file), so HiPS scheme groups pixels in different tiles. The general relationship between
+the tiles and pixels is that a tile with *n*-tile pixels along each
+side forms a HEALPix mesh of order of *k*-tile.
+
+
 **HiPS file structuring scheme**
 -
 In HiPS, tiles store the map information from HEALPix. These tiles are presented as square arrays and it is possible to store them in multiple file formats. Focusing on simplicity and usability, the description of arrays stored in files are straightforward with all the array positions being filled.
-The files are organized in different directories. Here, tiles are used as files and tile orders are used for group data in directories - all following a naming convention.
+The files are organized in different directories. Here, tiles are used as files and tile orders are used for group data in directories - all following a naming convention. For more information on the method of storing files, view [this](http://aladin.unistra.fr/hips/hipsdoc.pdf) document, written by *Pierre Fernique*.
+
+
+
+
