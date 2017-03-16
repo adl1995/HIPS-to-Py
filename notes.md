@@ -50,15 +50,15 @@ HEALPix header files can contain the following three letters, each depicting the
 * **G**:Galactic
 * **E**:Ecliptic (not mentioned in HiPS paper)
 
-### **International Celestial Reference System **###
+### **International Celestial Reference System ** ###
 
 ICRS is the current standard celestial reference system adopted by the International Astronomical Union (IAU). Its **origin is at the barycenter of the Solar System**, with axes that are intended to be "fixed" with respect to space - this is referred to as International Celestial Reference Frame (ICRF). ICRS coordinates are approximately the same as equatorial coordinates:
 
-### **Fifth Fundamental Catalogue **###
+### **Fifth Fundamental Catalogue ** ###
 
 FK5 is a part of the "Catalogue of Fundamental Stars" which provides a series of six astrometric catalogues of high precision positional data for a small selection of stars to define a celestial reference frame. J2000 refers to the instant of 12pm (midday) on 1st January 2000. FK5, publish in 1991, added 3,117 new stars.
 
-### **Galactic coordinate system **###
+### **Galactic coordinate system ** ###
 
 The galactic coordinate system is a celestial coordinate system in spherical coordinates, with its **origin at the Sun**, the primary direction aligned with the approximate center of the Milky Way galaxy, and the fundamental plane parallel to an approximation of the galactic plane but offset to its north. GCS has its own Galactic longitude and Galactic latitude.
 
