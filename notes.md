@@ -32,7 +32,7 @@ In addition to HEALPix, there are several other tools available for sky tessella
 -
 Before moving on to the coordinating systems used by HiPS, let's briefly go through some common measures using in astronomical studies.
 
-#####**RA / DEC**#####
+##### **RA / DEC** #####
 RA (right ascension) and DEC (declination) are the longitudes and latitudes of the sky. RA corresponds to east/west direction (like longitude), while Dec measures north/south directions, like latitude.
 
 #####**WCS**#####
