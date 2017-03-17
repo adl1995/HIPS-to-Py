@@ -7,6 +7,8 @@ A compilation of various articles / research papers on HiPS, HEALPix, Coordinate
 * https://en.wikipedia.org/wiki/FITS
 * https://workshops.ift.uam-csic.es/uploads/charla/150/Healpix.pdf
 * http://aladin.unistra.fr/hips/hipsdoc.pdf
+* http://www.ivoa.net/documents/HiPS/20170207/PR-HIPS-1.0-20170207.pdf
+* http://www.ivoa.net/documents/Notes/HiPS/20151026/NOTE-HIPS-1.0-20151015.pdf
 
 #### Documentation ####
 * http://docs.astropy.org/en/stable/

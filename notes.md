@@ -83,3 +83,7 @@ side forms a HEALPix mesh of order of *k*-tile.
 -
 In HiPS, tiles store the map information from HEALPix. These tiles are presented as square arrays and it is possible to store them in multiple file formats. Focusing on simplicity and usability, the description of arrays stored in files are straightforward with all the array positions being filled.
 The files are organized in different directories. Here, tiles are used as files and tile orders are used for group data in directories - all following a naming convention. For more information on the method of storing files, view [this](http://aladin.unistra.fr/hips/hipsdoc.pdf) document, written by *Pierre Fernique*.
+
+**Multi-order coverage maps**
+-
+To define an MOC map, HEALPix pixels are considered at a given order, k. These HEALPix pixels point to a location in the sky. So, for a given data from a part of Sky, the MOC maps can be defined from them. For generating the MOC map, first the highest order values it found out for which we get the minimum pixel value. The resolution for MOC is determined by the highest order. 
