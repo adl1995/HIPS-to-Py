@@ -52,6 +52,8 @@ distribute-*.tar.gz
 cover
 htmlcov
 .ipynb_checkpoints
+.matplotlib-adeel
+
 # Mac OSX
 .DS_Store
 
