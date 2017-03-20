@@ -86,4 +86,14 @@ The files are organized in different directories. Here, tiles are used as files 
 
 **Multi-order coverage maps**
 -
-To define an MOC map, HEALPix pixels are considered at a given order, k. These HEALPix pixels point to a location in the sky. So, for a given data from a part of Sky, the MOC maps can be defined from them. For generating the MOC map, first the highest order values it found out for which we get the minimum pixel value. The resolution for MOC is determined by the highest order. 
+To define an MOC map, HEALPix pixels are considered at a given order, k. These HEALPix pixels point to a location in the sky. So, for a given data from a part of Sky, the MOC maps can be defined from them. For generating the MOC map, first the highest order values it found out for which we get the minimum pixel value. The resolution for MOC is determined by the highest order. The resolution of MOC is four times less than the k-max (maximum order) of HiPS.
+
+**HiPS usage**
+
+Mainly, HiPS is only used for tiles and images, however, it can be used as a container for other information related with sky. The format / content of this container can vary according to the use case. The data structures available in HiPS have so far been used for images, catalogues, and three dimensional cubes.
+
+ *HiPS images
+
+The way HiPS represents images is by resampling them on a HEALPix grid at the maximum desired order, say k-max. Then it generates tile images for tile orders. When mosaicking / stitching images, the angular resolution is taken into account. There are various methods available for filling the data region when stitching images and how to deal with the background difference. The k-max we chose earlier determines minimum pixel size which is near to  the angular pixel size or the resolution of the original data.
+
+Next important thing is whether to emphasize on **display quality** or **photometric accuracy**, which depends on our use case. Image encoding can be done either in **FITS**, **PNG**, **JPG** file format. For most cases it is enough to only generate FITS and PNG files. The lowest order pixel values correspond to a large area of the sky. The HiPS indexing structure takes care of mapping correct tiles onto a display.
