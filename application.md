@@ -1,6 +1,8 @@
 **HiPS to Py**
 ==============
-> Suborganization: Astropy
+
+> * Organization: OpenAstronomy
+> * Suborganization: Astropy
 
 Student information
 -------------------
@@ -32,7 +34,7 @@ Project Details
 
 ### Mentors ###
 > * [Christoph Deil](https://github.com/cdeil)
-* [Thomas Boch](https://github.com/tboch)
+> * [Thomas Boch](https://github.com/tboch)
 
 ### Abstract ###
 > Design and create a Python client for Hierarchical Progressive Surveys (HiPS). This will enable users to view astronomical figures in an interactive environment, similar to Google Maps. Currently, such clients exist, such as Aladin and Aladin Lite, but they are written in Java and JavaScript, respectively. The goal of this project is to provide similar functionality using Python. The current decision is to work only with HiPS images, but if everything goes well, I wish to work on HiPS catalogues as well. 
