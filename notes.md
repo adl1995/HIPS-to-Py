@@ -84,6 +84,18 @@ side forms a HEALPix mesh of order of *k*-tile.
 In HiPS, tiles store the map information from HEALPix. These tiles are presented as square arrays and it is possible to store them in multiple file formats. Focusing on simplicity and usability, the description of arrays stored in files are straightforward with all the array positions being filled.
 The files are organized in different directories. Here, tiles are used as files and tile orders are used for group data in directories - all following a naming convention. For more information on the method of storing files, view [this](http://aladin.unistra.fr/hips/hipsdoc.pdf) document, written by *Pierre Fernique*.
 
+**HiPS images**
+-
+The way HiPS represents images is by resampling them on a HEALPix grid at the maximum desired order, say k<sup>max</sup>. Then it generates tile images for tile orders. When mosaicking / stitching images, the angular resolution is taken into account. There are various methods for filling the data region when stitching images and dealing with background difference. The k<sup>max</sup> chosen earlier determines minimum pixel size which is near to the angular pixel size or the resolution of original data.
+
+Next important thing is whether to emphasize on ``display quality`` or ``photometric accuracy``, which depends on our use case. Image encoding can be done either in **FITS**, **PNG**, **JPG** file format. For most cases it is enough to only generate FITS and PNG files. The lowest order pixel values correspond to a large area of the sky. The HiPS indexing structure takes care of mapping correct tiles onto a display.
+
+HiPS generation for huge amounts of data such as the Hubble Space Telescope requires planning of system growth.
+
+**HiPS catalogues**
+-
+The same ways a tile in HiPS image survey contains a 512x512 image, a tile catalogue contains the RA / DEC coordinates stored in a TSV file. The data is ASCII tab separated and is organized in various directories the same way as HiPS images. 
+
 **Multi-order coverage maps**
 -
 To define an MOC map, HEALPix pixels are considered at a given order, k. These HEALPix pixels point to a location in the sky. So, for a given data from a part of Sky, the MOC maps can be defined from them. For generating the MOC map, first the highest order values it found out for which we get the minimum pixel value. The resolution for MOC is determined by the highest order. The resolution of MOC is four times less than the k-max (maximum order) of HiPS.
@@ -97,3 +109,31 @@ Mainly, HiPS is only used for tiles and images, however, it can be used as a con
 The way HiPS represents images is by resampling them on a HEALPix grid at the maximum desired order, say k-max. Then it generates tile images for tile orders. When mosaicking / stitching images, the angular resolution is taken into account. There are various methods available for filling the data region when stitching images and how to deal with the background difference. The k-max we chose earlier determines minimum pixel size which is near to  the angular pixel size or the resolution of the original data.
 
 Next important thing is whether to emphasize on **display quality** or **photometric accuracy**, which depends on our use case. Image encoding can be done either in **FITS**, **PNG**, **JPG** file format. For most cases it is enough to only generate FITS and PNG files. The lowest order pixel values correspond to a large area of the sky. The HiPS indexing structure takes care of mapping correct tiles onto a display.
+
+
+
+Current progress
+---------
+I have already started conversing with Christoph Deil, who assigned me numerous tasks related with fetching HiPS tiles and displaying them using ``Matplotlib``. The calculation of ``Norder``, ``Npixels``, and ``Nside`` was done using ``Healpy``. The retrieved image was then decoded and displayed using
+```python
+tile = Image.open(BytesIO(data))
+plt.imshow(tile)
+```
+There is also a different Python script that I wrote which retrieves a tile in JPG format and writes it as a FITS map. This was achieved using Astropy's ``astropy.writeto`` method. For writing the file, this code was used
+```python
+tile = Image.open(BytesIO(data))
+hdu = fits.PrimaryHDU(tile)
+hdu.writeto('tile.fits')
+```
+The transformation / mapping of Geocentric coordinates onto a HiPS pixel was achieved using this
+```python
+geocentric_coords = np.array([0.93085172744576927, 0.35906913416283726, 0.067708333333333329])
+theta, phi = hp.vec2ang(geocentric_coords)
+```
+Utilizing ``theta`` and ``phi`` the pixel number was found
+```python
+npixel = hp.ang2pix(nside, theta, phi)
+```
+After going through all conversions and successfully writing a FITS map, I then loaded it using ``astropy.io.fits.open`` function.
+
+Apart from this, I downloaded the Aladin desktop application and examined its various functionalities. It offers a tool for enabling HEALPix grid on the currently displayed image. This helped me better understand how to the grid gets divided at different zoom levels, and the relation between order and pixel numbers.

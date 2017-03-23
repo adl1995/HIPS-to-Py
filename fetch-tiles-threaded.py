@@ -3,7 +3,6 @@
 
 import threading
 import urllib.request
-import requests
 import grequests
 import time
 

@@ -40,15 +40,9 @@ Project Details
 > Design and create a Python client for Hierarchical Progressive Surveys (HiPS). This will enable users to view astronomical figures in an interactive environment, similar to Google Maps. Currently, such clients exist, such as Aladin and Aladin Lite, but they are written in Java and JavaScript, respectively. The goal of this project is to provide similar functionality using Python. The current decision is to work only with HiPS images, but if everything goes well, I wish to work on HiPS catalogues as well. 
 
 ### Detailed description ###
-Hierarchical progressive surveys (HiPS) utilizes the HEALPix framework for mapping a sphere (in our case, part of a sky) and compiles / transforms it into tiles and pixels. HiPS emphasizes on usability and thus tries to abstract the scientific details (while preserving them). This can be further built upon for statistical analysis of large datasets. For this project, a HiPS Python client is to be implemented which will enable users to view / explore astronomical figures. HiPS data is stored in the form of catalogues (TSV), or tiles (PNG, JPG, FITS). In the context of this project only tiles are to be retrieved and stitched together to get the final output. Listed below are current HiPS clients:
+Hierarchical progressive surveys (HiPS) utilizes the HEALPix framework for mapping a sphere (in our case, part of a sky) and compiles / transforms it into tiles and pixels. HiPS emphasizes on usability and thus tries to abstract the scientific details (while preserving them). This can be further built upon for statistical analysis of large datasets. For this project, a HiPS Python client is to be implemented which will enable users to view / explore astronomical figures. HiPS data is stored in the form of catalogues (TSV), or tiles (PNG, JPG, FITS). In the context of this project only tiles are to be retrieved and stitched together to get the final output. Some of the current HiPS clients include Aladin Desktop, Aladin Lite (CDS), MIZAR, ESAsky, and JUDO2. 
 
-* Aladin Desktop
-* Aladin Lite (CDS)
-* MIZAR
-* ESAsky
-* JUDO2 
-
-The goal of this project would be to create a new HiPS client under ``astropy/hips``. However, this would run purely on Python. The possible dependencies for this software are:
+The goal of this project would be to create a new HiPS client under ``astropy/hips``. However, this would run purely on Python. The possible **dependencies** for this software are:
 
 * Python >= 3.5
 * Astropy
@@ -82,44 +76,36 @@ HEALPix header files contain one of the following three letters, each depicting 
 
 HiPS uses the Celestial coordinate system by default. Also, HiPS does not support Ecliptic coordinate system.
 
-#### HiPS pixels ####
-Using the header ``hips_pixel_bitpix`` with the format -64, -32, 8, 16, 32, 64 (FITS convention) the pixels are stored in ``BITPIX`` code. The multi-resolution representation of original images provides the basis for visualizing data in a progressive way as the pixels that are required for a given view can be accessed through pre-computed HEALPix maps, and the nested pixel numbering scheme provides a simple hierarchical indexing system that encodes pixel inheritance across different orders.
+#### HiPS pixels, tiles and file structuring scheme ####
+The multi-resolution representation of original images provides the basis for visualizing data in a progressive way as the pixels that are required for a given view can be accessed through pre-computed HEALPix maps, and the nested pixel numbering scheme provides a simple hierarchical indexing system that encodes pixel inheritance across different orders.
 
-#### HiPS tiles ####
 As it is cumbersome to transfer each pixel (essentially a file), HiPS scheme groups pixels in different tiles. The general relationship between tiles and pixels is that a tile with n-tile pixels along each side forms a HEALPix mesh of order of k-tile.
 
-#### HiPS file structuring scheme ####
 In HiPS, tiles store map information from HEALPix. These tiles are presented as square arrays and it is possible to store them in multiple file formats. Focusing on simplicity and usability, the description of arrays stored in files are straightforward with all the array positions being filled. The files are organized in different directories. Here, tiles are used as files and tile orders are used for grouping data in directories - all following a naming convention. For more information on the method of storing files, [this](http://aladin.unistra.fr/hips/hipsdoc.pdf) document can be viewed, written by Pierre Fernique.
 
-#### HiPS images ####
+#### HiPS images & catalogues ####
 The way HiPS represents images is by resampling them on a HEALPix grid at the maximum desired order, say k<sup>max</sup>. Then it generates tile images for tile orders. When mosaicking / stitching images, the angular resolution is taken into account. There are various methods for filling the data region when stitching images and dealing with background difference. The k<sup>max</sup> chosen earlier determines minimum pixel size which is near to the angular pixel size or the resolution of original data.
 
 Next important thing is whether to emphasize on ``display quality`` or ``photometric accuracy``, which depends on our use case. Image encoding can be done either in **FITS**, **PNG**, **JPG** file format. For most cases it is enough to only generate FITS and PNG files. The lowest order pixel values correspond to a large area of the sky. The HiPS indexing structure takes care of mapping correct tiles onto a display.
 
 HiPS generation for huge amounts of data such as the Hubble Space Telescope requires planning of system growth.
 
-#### HiPS catalogues ####
 The same ways a tile in HiPS image survey contains a 512x512 image, a tile catalogue contains the RA / DEC coordinates stored in a TSV file. The data is ASCII tab separated and is organized in various directories the same way as HiPS images. 
+
+##### Approach #####
+For a world coordinate system and an image with dimensions ``(x * y)``, I will create a numpy array with the image by fetching tiles and projecting them onto this image array. There will be lower-level functionality, like fetching tiles.
+
+The repository where the code will reside is already set up (https://github.com/tboch/hips). I will create Pull Requests of the code I write, which will be verified by the mentors. The project will be set up by the mentors as well.
 
 ## Benefits ##
 HiPS addresses the challenge of big data in astronomy. It describes data in a multi-resolution manner, so it effectively creates an ease in its access. It can also be utilized for data sharing and interoperability. HiPS provides a means for conserving scientific details of astronomical data. MOC maps generated using HiPS facilitate the comparison of sky region between different data sets, and can be used to establish regions of intersection between multiple surveys. It helps to avoid complex queries on database through the initial first response.
 
 Current progress
 ---------
-I have already started conversing with Christoph Deil, who assigned me numerous tasks related with fetching HiPS tiles and displaying them using ``Matplotlib``. The calculation of ``Norder``, ``Npixels``, and ``Nside`` was done using ``Healpy``. The retrieved image was then decoded and displayed using
+I wrote a Python script which fetches HiPS tiles and displays them using ``Matplotlib``. The calculation of ``Norder``, ``Npixels``, and ``Nside`` was done using ``Healpy``. The retrieved image was then bytes decoded using the ``BytesIO`` library.
+
+Another script I wrote retrieved a HiPS tile in JPG format and wrote it as a FITS map. This was achieved using Astropy's ``astropy.writeto`` method. The transformation / mapping of Geocentric coordinates onto a HiPS pixel was achieved using this
 ```python
-tile = Image.open(BytesIO(data))
-plt.imshow(tile)
-```
-There is also a different Python script that I wrote which retrieves a tile in JPG format and writes it as a FITS map. This was achieved using Astropy's ``astropy.writeto`` method. For writing the file, this code was used
-```python
-tile = Image.open(BytesIO(data))
-hdu = fits.PrimaryHDU(tile)
-hdu.writeto('tile.fits')
-```
-The transformation / mapping of Geocentric coordinates onto a HiPS pixel was achieved using this
-```python
-geocentric_coords = np.array([0.93085172744576927, 0.35906913416283726, 0.067708333333333329])
 theta, phi = hp.vec2ang(geocentric_coords)
 ```
 Utilizing ``theta`` and ``phi`` the pixel number was found
@@ -128,15 +114,39 @@ npixel = hp.ang2pix(nside, theta, phi)
 ```
 After going through all conversions and successfully writing a FITS map, I then loaded it using ``astropy.io.fits.open`` function.
 
+As multiple tiles have to be fetched for time efficiency, concurrency has to be achieved. So, I wrote another script utilizing Python's ``threading`` library. The elapsed time was calculated using ``time``. For fetching the tiles ``urllib`` and ``grequests`` were used.
+
+For fetching 10 tiles, it took the following mentioned time (in seconds):
+```python
+Elapsed Time URLLib (without concurrency): 3.5430831909179688
+Elapsed Time URLLib (with concurrency): 0.388397216796875
+Elapsed Time GRequests: 1.6238431930541992
+```
+
+Similarly, For fetching 100 tiles, it took the following mentioned time (in seconds):
+```python
+Elapsed Time URLLib (without concurrency): 37.7027428150177
+Elapsed Time URLLib (with concurrency): 5.575664043426514
+Elapsed Time GRequests: 4.273705244064331
+```
+
+The pros of ``grequests`` is that it takes less time when large number of requests have to be sent. But, ``urllib`` (with threading) is clearly the better choice when requests to be sent are numerous. 
+
 Apart from this, I downloaded the Aladin desktop application and examined its various functionalities. It offers a tool for enabling HEALPix grid on the currently displayed image. This helped me better understand how to the grid gets divided at different zoom levels, and the relation between order and pixel numbers.
+
+Deliverables
+---------
+
+Development environment
+---------
 
 ## Timeline ##
 
 | Time Period        | Plan           |
 | ------------- | ------------- |
-| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Finalize on the deliverables.</li><li>Discuss with mentors and get a final idea on how to approach the problem.<li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt``.</li><li>Discuss with mentors which documentation generation tool to use such as ``Sphinx`` or ``Doxygen``.</li></ul>|
+| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt`` (if possible).</li><li>Discuss on what pattern should be followed for extracting documentation using an automated tool ``Sphinx``.</li></ul>|
 | | **Part 1 starts** |
-| May 30, 2017 - June 15, 2017 ( 2 weeks ) | <ul><li>Set up the developement environment, get familiar with Astropy's coding practices.</li><li>Write a skeleton layout of the algorithm / code to implement.</li></ul> |
+| May 30, 2017 - June 15, 2017 ( 2 weeks ) | <ul><li>Write a skeleton layout of the algorithm / code to implement.</li></ul> |
 | June 16, 2017 - June 30, 2017 ( 2 weeks ) | <ul><li>Document and write test cases for the added part.</li><li>**Update 1 : Push code so it is possible to view images on  providing coordinates.**</li></ul>|
 | | **Part 1 completed**<br />**Part 2 starts** |
 | July 01, 2017 - July 14, 2017 ( 2 weeks ) | <ul><li>Link the implemented part with GU interface.</li><li>Add functionality that enables user to apply filters on images for better results.</li></ul> |
@@ -149,4 +159,3 @@ Apart from this, I downloaded the Aladin desktop application and examined its va
 ## Availability ##
 
 My final exams end on May 20<sup>th</sup>. So, I will have ample time for the community bonding period. After that, I will be free during the whole summer i.e. almost three months. I do not have any other commitments, so I can focus all my attention to GSoC.
-
