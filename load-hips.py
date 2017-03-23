@@ -34,6 +34,7 @@ directory = np.around(int(npixel), decimals=-(len(str(npixel)) - 1))
 base_url = 'http://alasky.u-strasbg.fr/DSS/' + survey \
            + '/Norder' + str(order) + '/Dir' + str(directory) + '/Npix' + str(npixel) + '.jpg'
 
+print (base_url)
 print('Choose a library for retreiving HiPS data: \n1. URLlib\n2. Requests')
 choice = input('Enter your choice: ')
 
