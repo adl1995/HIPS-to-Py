@@ -114,13 +114,12 @@ npixel = hp.ang2pix(nside, theta, phi)
 ```
 After going through all conversions and successfully writing a FITS map, I then loaded it using ``astropy.io.fits.open`` function.
 
-As multiple tiles have to be fetched for time efficiency, concurrency has to be achieved. So, I wrote another script utilizing Python's ``threading`` library. The elapsed time was calculated using ``time``. For fetching the tiles ``urllib``, ``grequests``, ``aiohttp``, ``asyncio`` were used.
+As multiple tiles have to be fetched for time efficiency, concurrency has to be achieved. So, I wrote another script utilizing Python's ``threading`` library. The elapsed time was calculated using ``time``. For fetching the tiles ``urllib`` and ``grequests`` were used.
 
 For fetching 10 tiles, it took the following mentioned time (in seconds):
 ```python
 Elapsed Time URLLib (without concurrency): 3.5430831909179688
 Elapsed Time URLLib (with concurrency): 0.388397216796875
-Elapsed Time URLLib (with aiohttp): 0.3900480270385742
 Elapsed Time GRequests: 1.6238431930541992
 ```
 
@@ -128,13 +127,10 @@ Similarly, For fetching 100 tiles, it took the following mentioned time (in seco
 ```python
 Elapsed Time URLLib (without concurrency): 37.7027428150177
 Elapsed Time URLLib (with concurrency): 5.575664043426514
-Elapsed Time URLLib (with aiohttp): 2.4697625637054443
 Elapsed Time GRequests: 4.273705244064331
 ```
 
-The pros of ``grequests`` is that it takes less time when large number of requests have to be sent. But, ``urllib`` (with threading) givesbetter reponse time when requests are numerous. 
-
-Using ``aiohttp`` with ``asyncio`` seems to be the best option. It's response time is almost 50% less than ``grequests``.
+The pros of ``grequests`` is that it takes less time when large number of requests have to be sent. But, ``urllib`` (with threading) is clearly the better choice when requests to be sent are numerous. 
 
 Apart from this, I downloaded the Aladin desktop application and examined its various functionalities. It offers a tool for enabling HEALPix grid on the currently displayed image. This helped me better understand how to the grid gets divided at different zoom levels, and the relation between order and pixel numbers.
 
