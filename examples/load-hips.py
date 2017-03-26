@@ -1,5 +1,11 @@
 #!/usr/bin/env python
-# @Author: Adeel Ahmad
+"""
+Example script to fetch a HiPS image tile and display it using Matplotlib.
+
+We use the Crab nebula and DSSColor survey as an example.
+
+Author: Adeel Ahmad
+"""
 
 from PIL import Image
 from io import BytesIO
@@ -7,10 +13,6 @@ from io import BytesIO
 import healpy as hp
 import matplotlib.pyplot as plt
 import numpy as np
-from astropy import units as u
-from astropy.coordinates import SkyCoord
-from astropy.coordinates import get_sun
-from astropy.time import Time
 
 # Rule followed: Tile N in order K -> NorderK / DirD / NpixN{.ext}
 survey = 'DSSColor'

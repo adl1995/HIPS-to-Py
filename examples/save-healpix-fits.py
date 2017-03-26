@@ -1,5 +1,10 @@
 #!/usr/bin/env python
-# @Author: Adeel Ahmad
+"""
+Example script to fetch a HiPS image tile and save it using Astropy.
+
+The FITS image is then loaded and displayed using Matplotlib.
+Author: Adeel Ahmad
+"""
 
 from PIL import Image
 from io import BytesIO

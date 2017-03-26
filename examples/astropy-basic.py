@@ -1,9 +1,7 @@
 #!/usr/bin/env python
-
-# -*- coding: utf-8 -*-
-# @Author: Adeel Ahmad
-# @Date:   2017-03-13 22:51:27
-# @Last Modified time: 2017-03-14 14:23:27
+"""
+Example script showing Astropy's basic functionality.
+"""
 
 from astropy import units as u
 from astropy.coordinates import SkyCoord
