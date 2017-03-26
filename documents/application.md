@@ -10,24 +10,26 @@ Student information
 ### Personal details ###
 * **Name**: Adeel Ahmad
 * **Email**: adeelahmadadl1995@gmail.com
-* **GitHub**: adl1995
+* **GitHub handle**: adl1995
 * **IRC (#OpenAstronomy)**: adl1995
 * **Timezone**: UTC +05:00
 * **Blog**: http://adl1995.github.io/
 
 ### Academic details ###
 * **University**: National University of Computer and Emerging Sciences, Islamabad
-* **Degree**: Computer Science 
-* **Graduation year**: 2018 
+* **Degree**: Computer Science
+* **Graduation year**: 2018
 
 Background
 ------
 
-In my previous semester, I enrolled myself in Digital Image Processing course. During the tenure of this course I implemented filters (Gaussian, Sobel, Prewitt, Laplacian), edge detectors (Canny, Marr Hildreth), morphological operators (Convex hulling, Erosion, Dilation), object detectors (Generalized Hough transform, simple convolution), and seam carvers. These were implemented purely in Python, making no use of any library other than ``Numpy`` and ``Matplotlib``. This attenuated my interest in Computer Vision and I have been an active researcher since then. I have showcased these project on my [GitHub profile](https://github.com/adl1995). The most interesting algorithm I implemented was [Generalized Hough Tranfrom](https://github.com/adl1995/generalised-hough-transform). I was amazed as to how something as simple as an equation of line could lead to detection of objects in images. Although my implementation was only scale invariant, I plan on extending this invariancy to orientation as well. Altough the 'HiPS to Py' project involves Computer Vision concepts at a brief level, building a visualization framework has been my interest for quite some time. 
+In my previous semester, I enrolled myself in Digital Image Processing course. During the tenure of this course I implemented filters (Gaussian, Sobel, Prewitt, Laplacian), edge detectors (Canny, Marr Hildreth), morphological operators (Convex hulling, Erosion, Dilation), object detectors (Generalized Hough transform, simple convolution), and seam carvers. These were implemented purely in Python, making no use of any library other than ``Numpy`` and ``Matplotlib``. This attenuated my interest in Computer Vision and I have been an active researcher since then. I have showcased these project on my [GitHub profile](https://github.com/adl1995). The most interesting algorithm I implemented was [Generalized Hough Tranfrom](https://github.com/adl1995/generalised-hough-transform). I was amazed as to how something as simple as an equation of line could lead to detection of objects in images. Although my implementation was only scale invariant, I plan on extending this invariancy to orientation as well. Altough the 'HiPS to Py' project involves Computer Vision concepts at a brief level, building a visualization framework has been my interest for quite some time.
 
 Apart from this, I have also been a PHP web developer for almost two years, and I have worked on multitude of project ranging for SaaS to e-commerce websites. I work remotely on [Upwork](https://www.upwork.com/freelancers/~018e56b8591046f889) and [Fiverr](https://www.fiverr.com/adl1995). My clients are either IT organizations or independent contractors. I have also worked on web automation and data scraping using ``Selenium`` and ``BeautifulSoup``. Although these skills are not required for this organization and have no direct links in my project, it shows that I am persistent and hard-working. The skills that I acquire are through self learning and consistency. Currently I am building an application using [Google Application Engine](https://github.com/adl1995/zoho-portal).
 
 I started collaborating with Open Source organizations for only about a month now, and my experience has been excellent so far. The mentors have been very kind, welcoming and have provided assistance along the way. Given my background in Computer Vision and being good at problem solving, I firmly believe this prestigious organization and its users will benefit by HiPS client for Python. It would also provide me with a working ground knowledge on Astronomy.
+
+During the tenure of this project, I hope to improve my skills with tools like  ``Jupyter``, ``Pytest``, ``Sphinx``, and ``Git``. It will also provide me with a professional level overview on how to write applications, make plans, organize projects, remotely working with other developers and design a good API.
 
 Project Details
 ---------------
@@ -37,18 +39,21 @@ Project Details
 > * [Thomas Boch](https://github.com/tboch)
 
 ### Abstract ###
-> Design and create a Python client for Hierarchical Progressive Surveys (HiPS). This will enable users to view astronomical figures in an interactive environment, similar to Google Maps. Currently, such clients exist, such as Aladin and Aladin Lite, but they are written in Java and JavaScript, respectively. The goal of this project is to provide similar functionality using Python. The current decision is to work only with HiPS images, but if everything goes well, I wish to work on HiPS catalogues as well. 
+> Design and create a Python client for Hierarchical Progressive Surveys (HiPS), allows users to view astronomical figures, similar to Google Maps. Currently, there are clients built using HiPS, such as Aladin and Aladin Lite, but they are written in Java and JavaScript, respectively. The goal of this project is that for a given World Coordinate System and image size (nx, ny), create a numpy array containing the image by fetching tiles and projecting them onto an image array. Then features like measuring fluxes and overplotting multi-wavelength data are to be added. If everything goes well, I wish to work on HiPS catalogues as well. An optional feature is to create a GUI viewer.
 
 ### Detailed description ###
-Hierarchical progressive surveys (HiPS) utilizes the HEALPix framework for mapping a sphere (in our case, part of a sky) and compiles / transforms it into tiles and pixels. HiPS emphasizes on usability and thus tries to abstract the scientific details (while preserving them). This can be further built upon for statistical analysis of large datasets. For this project, a HiPS Python client is to be implemented which will enable users to view / explore astronomical figures. HiPS data is stored in the form of catalogues (TSV), or tiles (PNG, JPG, FITS). In the context of this project only tiles are to be retrieved and stitched together to get the final output. Some of the current HiPS clients include Aladin Desktop, Aladin Lite (CDS), MIZAR, ESAsky, and JUDO2. 
+Hierarchical progressive surveys (HiPS) utilizes the HEALPix framework for mapping a sphere (in our case, part of a sky) and compiles / transforms it into tiles and pixels. HiPS emphasizes on usability and thus tries to abstract the scientific details (while preserving them). This can be further built upon for statistical analysis of large datasets. For this project, a HiPS Python client is to be implemented which will enable users to view / explore astronomical figures. HiPS data is stored in the form of catalogues (TSV), or tiles (PNG, JPG, FITS). In the context of this project only tiles are to be retrieved and stitched together to get the final output. Some of the current HiPS clients include Aladin Desktop, Aladin Lite (CDS), MIZAR, ESAsky, and JUDO2.
 
-The goal of this project would be to create a new HiPS client under ``astropy/hips``. However, this would run purely on Python. The possible **dependencies** for this software are:
+The goal of this project would be to create a new HiPS client under ``astropy/hips``. However, this would run purely on Python. The **main dependencies** for this software are:
 
-* Python >= 3.5
-* Astropy
-* Healpy
-* Numpy
-* Retransform
+* [Python](https://www.python.org/) >= 3.5
+* [NumPy](http://www.numpy.org/)
+* [Astropy](http://docs.astropy.org/en/stable/)
+* [Healpy](http://healpy.readthedocs.io/)
+
+Some other **possible dependencies** for tile drawing include:
+* [Reproject](http://reproject.readthedocs.io/en/stable/)
+* [SciPy](https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html#interpolation-functions)
 
 #### The HEALPix framework ####
 
@@ -64,7 +69,7 @@ In a nutshell, the pixelization procedure subdivides a spherical sphere in which
 #### Pixel numbering schemes ####
 
 HEALPix provides two numbering schemes for pixels, namely **RING scheme** and **NESTED scheme**.
-    
+
 Some alternative tools to HEALPix are Hierarchical Triangular Mesh (HTM) and Tessellated Octahedral Adaptive Subdivision Transform (TOAST).
 
 #### HEALPix coordinate system ####
@@ -90,7 +95,7 @@ Next important thing is whether to emphasize on ``display quality`` or ``photome
 
 HiPS generation for huge amounts of data such as the Hubble Space Telescope requires planning of system growth.
 
-The same ways a tile in HiPS image survey contains a 512x512 image, a tile catalogue contains the RA / DEC coordinates stored in a TSV file. The data is ASCII tab separated and is organized in various directories the same way as HiPS images. 
+The same ways a tile in HiPS image survey contains a 512x512 image, a tile catalogue contains the RA / DEC coordinates stored in a TSV file. The data is ASCII tab separated and is organized in various directories the same way as HiPS images.
 
 ##### Approach #####
 For a world coordinate system and an image with dimensions ``(x * y)``, I will create a numpy array with the image by fetching tiles and projecting them onto this image array. There will be lower-level functionality, like fetching tiles.
@@ -132,28 +137,55 @@ Elapsed Time URLLib (with aiohttp): 2.4697625637054443
 Elapsed Time GRequests: 4.273705244064331
 ```
 
-The pros of ``grequests`` is that it takes less time when large number of requests have to be sent. But, ``urllib`` (with threading) givesbetter reponse time when requests are numerous. 
+The pros of ``grequests`` is that it takes less time when large number of requests have to be sent. But, ``urllib`` (with threading) givesbetter reponse time when requests are numerous.
 
 Using ``aiohttp`` with ``asyncio`` seems to be the best option. It's response time is almost 50% less than ``grequests``.
 
 Apart from this, I downloaded the Aladin desktop application and examined its various functionalities. It offers a tool for enabling HEALPix grid on the currently displayed image. This helped me better understand how to the grid gets divided at different zoom levels, and the relation between order and pixel numbers.
 
+In relation to how to write documentation and write test cases, I have familiarized myself with how to format code, tests and documentation  within the [regions](https://github.com/astropy/regions) package.
+
+Communication
+-------------
+After a brief discussion with the mentors, the decision is to write progress report at the end of each outlining the following
+* Amount of work done.
+* Ask question(s) / assistance concerning a feature that is causing hindrance in the progress (if need be).
+* Schedule for next day.
+* Weekly hangouts where to assess status and make a plan for the next week (with 1 hour time investment for me to prepare a Google doc with questions and notes, and then a ~ 1 hour call with the mentors)
+* Daily summary / question / next day plan emails from you in the evening, and reply with feedback from us mentors (with ~ 5 min time investment for each)
+
+Interaction will be mainly through GitHub or Skype chat.
+
+
+Mode of publishing code
+-----------------------
+Keeping in view the above mentioned communication structure, at least one, usually several small pull requests per week (ideally, get your work merged by the end of the week, and then you start new PRs next week)
+
+
 Deliverables
 ---------
+Lower level functionality to fetch tiles through HiPS...
+test-driven development...
+write docstrings and high-level documentation...
+design API...
+Most time will be spent around writing test cases...
+
+example: https://github.com/astropy/regions
 
 Development environment
 ---------
+My current development environment include pip, Jupyer, IPython, PyCharm, Sublime
 
 ## Timeline ##
 
 | Time Period        | Plan           |
 | ------------- | ------------- |
-| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt`` (if possible).</li><li>Discuss on what pattern should be followed for extracting documentation using an automated tool ``Sphinx``.</li></ul>|
+| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt`` (optional).</li><li>Discuss on what pattern should be followed for extracting documentation using an automated tool ``Sphinx``.</li><li>Iteratively publish code through pull requests.</li></ul>|
 | | **Part 1 starts** |
-| May 30, 2017 - June 15, 2017 ( 2 weeks ) | <ul><li>Write a skeleton layout of the algorithm / code to implement.</li></ul> |
-| June 16, 2017 - June 30, 2017 ( 2 weeks ) | <ul><li>Document and write test cases for the added part.</li><li>**Update 1 : Push code so it is possible to view images on  providing coordinates.**</li></ul>|
+| May 30, 2017 - June 15, 2017 ( 2 weeks ) | <ul><li>Write a skeleton layout of the algorithm / code to implement, assisstance will be provided by the mentors.</li><li>Iteratively publish code through pull requests.</li></ul> |
+| June 16, 2017 - June 30, 2017 ( 2 weeks ) | <ul><li>Document and write test cases using ``Pyest`` for the added part.</li></ul>|
 | | **Part 1 completed**<br />**Part 2 starts** |
-| July 01, 2017 - July 14, 2017 ( 2 weeks ) | <ul><li>Link the implemented part with GU interface.</li><li>Add functionality that enables user to apply filters on images for better results.</li></ul> |
+| July 01, 2017 - July 14, 2017 ( 2 weeks ) | <ul><li>Link the implemented part with GU interface (optional).</li><li>Add functionality that enables user to apply filters on images for better results.</li></ul> |
 | July 15, 2017 - July 28, 2017 ( 2 weeks ) | <ul><li>Add optimizations, write test cases.</li><li>Add support for HiPS catalogues (to be discussed).</li></ul> |
 | | **Part 2 completed** |
 | August 21, 2017 - August 29, 2017 **(Students Submit Code and Evaluations)** | <ul><li>Clean up code.</li><li>Improve documentation.</li><li>Add further test cases.</li><li>Code refactoring (if required).</li><li>Resolve merge conflicts (if any).</li></ul> |
