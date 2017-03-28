@@ -5,37 +5,30 @@ Example script to fetch a HiPS image tile and save it using Astropy.
 The FITS image is then loaded and displayed using Matplotlib.
 Author: Adeel Ahmad
 """
-
-from PIL import Image
-from io import BytesIO
-
-import healpy as hp
+from hipstools.io import image
+from hipstools.info import header
+from hipstools.retrieve import tiles
 import matplotlib.pyplot as plt
-import numpy as np
-import urllib.request
-from astropy.io import fits
 
-# Rule followed: Tile N in order K -> NorderK / DirD / NpixN{.ext}
-survey = 'DSSColor'
-geocentric_coords = np.array([0.93085172744576927, 0.35906913416283726, 0.067708333333333329])
+# define metadata
+survey = '2MASS6X/2MASS6X_H'
+geocentric_coords = [0.93085172744576927,
+                     0.35906913416283726, 0.067708333333333329]
+url = 'http://cade.irap.omp.eu'
 order = 7
-theta, phi = hp.vec2ang(np.array(geocentric_coords))
-nside = hp.order2nside(order)
-npixel = hp.ang2pix(nside, theta, phi)[0]
-directory = np.around(int(npixel), decimals=-(len(str(npixel)) - 1))
+extension = 'fits'
 
-base_url = 'http://alasky.u-strasbg.fr/DSS/' + survey \
-           + '/Norder' + str(order) + '/Dir' + str(directory) + '/Npix' + str(npixel) + '.jpg'
+# fetch tile
+data = tiles.fetch(survey, url, geocentric_coords, order,
+                   package='requests', format=extension)
 
-data = urllib.request.urlopen(base_url).read()
-tile = np.array(Image.open(BytesIO(data)))
+# store tile
+image.storeFITS(data, 'fits')
 
-hdu = fits.PrimaryHDU(tile)
+# load tile
+tile = image.loadFITS('image')
 
-hdu.writeto('tile.fits')
-
-hdu_list = fits.open('tile.fits')
-
-plt.imshow(hdu_list[0].data, cmap='gray')
+# display tile
+plt.imshow(tile, cmap='gray')
 plt.colorbar()
 plt.show()

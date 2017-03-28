@@ -160,7 +160,8 @@ print("Elapsed Time URLLib (without concurrency): %s" % (time.time() - start))
 
 start = time.time()
 
-threads = [threading.Thread(target=fetch_url_urllib, args=(url,)) for url in urls]
+threads = [threading.Thread(target=fetch_url_urllib, args=(url,))
+           for url in urls]
 for thread in threads:
     thread.start()
 for thread in threads:
