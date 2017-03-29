@@ -7,19 +7,44 @@ Author: Adeel Ahmad
 
 import healpy as hp
 import numpy as np
+from astropy.coordinates import SkyCoord
+
+"""
+Transform a given angle (theta, phi) to the World Coordinate System.
+
+"""
+
+
+def ang2WCS(theta, phi, unit='radian'):
+    if (unit is 'radian'):
+        vector = hp.ang2vec(theta, phi)
+    return vector
+
+
+"""
+Fetch tile from a HiPS server. Performs conversion as well.
+
+"""
 
 
 def fetch(survey, url, geocentric_coords, order, **kwargs):
-        # Rule followed: Tile N in order K -> NorderK / DirD / NpixN{.ext}
-    theta, phi = hp.vec2ang(np.array(geocentric_coords))
+    # Rule followed: Tile N in order K -> NorderK / DirD / NpixN{.ext}
     nside = hp.order2nside(order)
-    npixel = hp.ang2pix(nside, theta, phi)[0]
+    c = SkyCoord.from_name('crab')
+    theta = (np.pi / 2) - c.dec.radian
+    phi = c.ra.radian
+    npixel = hp.ang2pix(nside, theta, phi)
     directory = np.around(int(npixel), decimals=-(len(str(npixel)) - 1))
 
-    # base_url = 'http://alasky.u-strasbg.fr/' + survey \
-    #            + '/Norder' + str(order) + '/Dir' + str(directory) + '/Npix' + str(npixel) + '.jpg'
-    base_url = 'http://cade.irap.omp.eu/documents/Ancillary/4Aladin/AKARI_WideS/Norder3/Dir0/Npix346.' + \
-        kwargs['format']
+    base_url = url + survey \
+        + '/Norder' + str(order) + '/Dir' + str(directory) + \
+        '/Npix' + str(npixel) + kwargs['format']
+
+    # URL: Crab image
+    # http://alasky.unistra.fr/DSS/DSSColor/Norder6/Dir20000/Npix24185.jpg
+
+    # base_url = 'http://cade.irap.omp.eu/documents/Ancillary/4Aladin/AKARI_WideS/Norder3/Dir0/Npix346.' + \
+    #     kwargs['format']
 
     if (kwargs['package'] is 'urllib'):
         import urllib.request
@@ -30,14 +55,6 @@ def fetch(survey, url, geocentric_coords, order, **kwargs):
 
         data = requests.get(base_url).content
 
-        # t = Time('2016-03-20 4:30:00')
-        # print(get_sun(t))
-        # Returns a GCRS frame
-
-        # Coordinates for the Crab Nebula
-        # c = SkyCoord(ra=5.5755472222222*u.degree, dec=22.014472222222*u.degree, frame='icrs')
-        # c = c.galactic
-        # print(c)
-        # How to convert this to GCRS?
+    print('WCS : ', ang2WCS(theta, phi))
 
     return data

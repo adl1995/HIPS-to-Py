@@ -13,12 +13,12 @@ from hipstools.retrieve import tiles
 import matplotlib.pyplot as plt
 
 # define metadata
-survey = '2MASS6X/2MASS6X_H'
+survey = '/2MASS6X/2MASS6X_H'
 geocentric_coords = [0.93085172744576927,
                      0.35906913416283726, 0.067708333333333329]
 url = 'http://cade.irap.omp.eu'
 order = 7
-extension = 'jpg'
+extension = '.jpg'
 
 # fetch tile
 data = tiles.fetch(survey, url, geocentric_coords, order,
