@@ -97,6 +97,9 @@ HiPS generation for huge amounts of data such as the Hubble Space Telescope requ
 
 The same ways a tile in HiPS image survey contains a 512x512 image, a tile catalogue contains the RA / DEC coordinates stored in a TSV file. The data is ASCII tab separated and is organized in various directories the same way as HiPS images.
 
+#### Drawing HiPS tiles ####
+To draw HiPS tiles, affine transformation is used. For displaying a HiPS tile, first the best order is chosen to fit the display. Properties such as the maximum order and coordinate system (either ICRS or Galactic) are read from a file. The four corners of an image are mapped onto the display using affine transformation.
+
 ##### Approach #####
 For a world coordinate system and an image with dimensions ``(x * y)``, I will create a numpy array with the image by fetching tiles and projecting them onto this image array. There will be lower-level functionality, like fetching tiles.
 

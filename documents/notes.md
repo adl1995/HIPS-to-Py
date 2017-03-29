@@ -110,7 +110,8 @@ The way HiPS represents images is by resampling them on a HEALPix grid at the ma
 
 Next important thing is whether to emphasize on **display quality** or **photometric accuracy**, which depends on our use case. Image encoding can be done either in **FITS**, **PNG**, **JPG** file format. For most cases it is enough to only generate FITS and PNG files. The lowest order pixel values correspond to a large area of the sky. The HiPS indexing structure takes care of mapping correct tiles onto a display.
 
-
+**Drawing HiPS tiles**
+To draw HiPS tiles, affine transformation is used. For displaying a HiPS tile, first the best order is chosen to fit the display. Properties such as the maximum order and coordinate system (either ICRS or Galactic) are read from a file. The four corners of an image are mapped onto the display using affine transformation.  
 
 Current progress
 ---------
