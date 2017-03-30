@@ -1,9 +1,7 @@
-HiPS to Py
+GSoC 2017 project — HiPS to Py
 ----------
 
-A Python client for working with HiPS data. This is a project for Google Summer of Code 2017, the original contributions will be made to [https://github.com/tboch/hips](https://github.com/tboch/hips).
-
-The main purpose for this repository is to test / implement various prototypes concerned with the project.
+This is a repositroy concerned with testing / implementing various prototypes concerned with OpenAstropy's HiPS to Py project. This project is a part of Google Summer of Code 2017, and the original contributions will be made to [https://github.com/tboch/hips](https://github.com/tboch/hips) via pull requests.
 
 **Dependencies** for this package include:
 
