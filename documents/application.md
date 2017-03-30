@@ -39,10 +39,10 @@ Project Details
 > * [Thomas Boch](https://github.com/tboch)
 
 ### Abstract ###
-> Design and create a Python client for Hierarchical Progressive Surveys (HiPS), allows users to view astronomical figures, similar to Google Maps. Currently, there are clients built using HiPS, such as Aladin and Aladin Lite, but they are written in Java and JavaScript, respectively. The goal of this project is that for a given World Coordinate System and image size (nx, ny), create a numpy array containing the image by fetching tiles and projecting them onto an image array. Then features like measuring fluxes and overplotting multi-wavelength data are to be added. If everything goes well, I wish to work on HiPS catalogues as well. An optional feature is to create a GUI viewer.
+> Design and create a Python client for Hierarchical Progressive Surveys (HiPS), it will extend a Low / High level API for exploring creating WCS/ HEALPix image. Currently, there are clients built using HiPS, such as Aladin and Aladin Lite, but they are written in Java and JavaScript, respectively. The goal of this project is that for a given World Coordinate System and image size (nx, ny), create a NumPy array containing the image by fetching tiles and projecting them onto an image array. Then features like measuring fluxes and overplotting multi-wavelength data are to be added. If everything goes well, I wish to work on HiPS catalogues as well. An optional feature is to create a GUI viewer.
 
 ### Detailed description ###
-Hierarchical progressive surveys (HiPS) utilizes the HEALPix framework for mapping a sphere (in our case, part of a sky) and compiles / transforms it into tiles and pixels. HiPS emphasizes on usability and thus tries to abstract the scientific details (while preserving them). This can be further built upon for statistical analysis of large datasets. For this project, a HiPS Python client is to be implemented which will enable users to view / explore astronomical figures. HiPS data is stored in the form of catalogues (TSV), or tiles (PNG, JPG, FITS). In the context of this project only tiles are to be retrieved and stitched together to get the final output. Some of the current HiPS clients include Aladin Desktop, Aladin Lite (CDS), MIZAR, ESAsky, and JUDO2.
+Hierarchical progressive surveys (HiPS) utilizes the HEALPix framework for mapping a sphere (in our case, part of a sky) and compiles / transforms it into tiles and pixels. For this project, a HiPS Python client is to be implemented which will enable users to create WCS and HEALPix images. Functionality for exploring HiPS information will also be available.
 
 The goal of this project would be to create a new HiPS client under ``astropy/hips``. However, this would run purely on Python. The **main dependencies** for this software are:
 
@@ -57,45 +57,26 @@ Some other **possible dependencies** for tile drawing include:
 
 #### The HEALPix framework ####
 
-HEALPix, an acronym of 'Hierarchical Equal Area isoLatitude Pixelization of a sphere', is a framework for discretizing high resolution data. The software is available in C, C++, Fortran90, IDL, Java, and Python. It extends a data structure (with a library), for each language. The main features provided by this software are:
+This project will involve the HEALPix 'Hierarchical Equal Area isoLatitude Pixelization of a sphere' framework for discretizing high resolution data. This has implementations in many languages. It extends a data structure (with a library), for each language. The main features provided by this software are:
 
   * Pixel manipulation
   * Spherical Harmonics Transforms
   * Visualization
   * Input / Output (supports FITS files)
 
-In a nutshell, the pixelization procedure subdivides a spherical sphere in which each pixel is equidistant from the origin - meaning it covers the same surface area. This produces a HEALPix grid, whose interesting property is that pixels are distributed on lines of constant latitude. Due to this iso-latitude distribution of pixels the complexity for computing integrals over each harmonics is N<sup>1/2</sup>.
-
-#### Pixel numbering schemes ####
-
-HEALPix provides two numbering schemes for pixels, namely **RING scheme** and **NESTED scheme**.
+In a nutshell, the pixelization procedure subdivides a spherical sphere in which each pixel is equidistant from the origin - meaning it covers the same surface area. This produces a HEALPix grid. The framework provides two numbering schemes for pixels, namely **RING scheme** and **NESTED scheme**. It provides three coordinate systems, namely **Celestial** (HiPS default), **Galactic**, and **Ecliptic**.
 
 Some alternative tools to HEALPix are Hierarchical Triangular Mesh (HTM) and Tessellated Octahedral Adaptive Subdivision Transform (TOAST).
 
-#### HEALPix coordinate system ####
-HEALPix header files contain one of the following three letters, each depicting the coordinate system being used:
+HiPS uses the Celestial coordinate system by default. Also, HiPS does not support the Ecliptic coordinate system.
 
-* C:Celestial=ICRS=RA/DEC(equatorial)=FK5 J2000
-* G:Galactic
-* E:Ecliptic
-
-HiPS uses the Celestial coordinate system by default. Also, HiPS does not support Ecliptic coordinate system.
-
-#### HiPS pixels, tiles and file structuring scheme ####
+#### HiPS working ####
 The multi-resolution representation of original images provides the basis for visualizing data in a progressive way as the pixels that are required for a given view can be accessed through pre-computed HEALPix maps, and the nested pixel numbering scheme provides a simple hierarchical indexing system that encodes pixel inheritance across different orders.
 
-As it is cumbersome to transfer each pixel (essentially a file), HiPS scheme groups pixels in different tiles. The general relationship between tiles and pixels is that a tile with n-tile pixels along each side forms a HEALPix mesh of order of k-tile.
-
-In HiPS, tiles store map information from HEALPix. These tiles are presented as square arrays and it is possible to store them in multiple file formats. Focusing on simplicity and usability, the description of arrays stored in files are straightforward with all the array positions being filled. The files are organized in different directories. Here, tiles are used as files and tile orders are used for grouping data in directories - all following a naming convention. For more information on the method of storing files, [this](http://aladin.unistra.fr/hips/hipsdoc.pdf) document can be viewed, written by Pierre Fernique.
+HiPS scheme groups pixels in different tiles. The general relationship between tiles and pixels is that a tile with n-tile pixels along each side forms a HEALPix mesh of order of k-tile. Tiles store map information from HEALPix. These tiles are presented as square arrays and it is possible to store them in multiple file formats. The files are organized in different directories. Here, tiles are used as files and tile orders are used for grouping data in directories - all following a naming convention. For more information on the method of storing files, [this](http://aladin.unistra.fr/hips/hipsdoc.pdf) document can be viewed, written by Pierre Fernique.
 
 #### HiPS images & catalogues ####
-The way HiPS represents images is by resampling them on a HEALPix grid at the maximum desired order, say k<sup>max</sup>. Then it generates tile images for tile orders. When mosaicking / stitching images, the angular resolution is taken into account. There are various methods for filling the data region when stitching images and dealing with background difference. The k<sup>max</sup> chosen earlier determines minimum pixel size which is near to the angular pixel size or the resolution of original data.
-
-Next important thing is whether to emphasize on ``display quality`` or ``photometric accuracy``, which depends on our use case. Image encoding can be done either in **FITS**, **PNG**, **JPG** file format. For most cases it is enough to only generate FITS and PNG files. The lowest order pixel values correspond to a large area of the sky. The HiPS indexing structure takes care of mapping correct tiles onto a display.
-
-HiPS generation for huge amounts of data such as the Hubble Space Telescope requires planning of system growth.
-
-The same ways a tile in HiPS image survey contains a 512x512 image, a tile catalogue contains the RA / DEC coordinates stored in a TSV file. The data is ASCII tab separated and is organized in various directories the same way as HiPS images.
+HiPS generates tile images for tile orders. When mosaicking / stitching images, the angular resolution is taken into account. Next important thing is whether to emphasize on ``display quality`` or ``photometric accuracy``, which depends on our use case. Image encoding can be done either in **FITS**, **PNG**, **JPG** file format. For most cases it is enough to only generate FITS and PNG files. The lowest order pixel values correspond to a large area of the sky.
 
 #### Drawing HiPS tiles ####
 To draw HiPS tiles, affine transformation is used. For displaying a HiPS tile, first the best order is chosen to fit the display. Properties such as the maximum order and coordinate system (either ICRS or Galactic) are read from a file. The four corners of an image are mapped onto the display using affine transformation.
@@ -160,20 +141,19 @@ After a brief discussion with the mentors, the decision is to write progress rep
 Interaction will be mainly through GitHub or Skype chat.
 
 
-Mode of publishing code
+Method for publishing code
 -----------------------
 Keeping in view the above mentioned communication structure, at least one, usually several small pull requests per week (ideally, get your work merged by the end of the week, and then you start new PRs next week)
 
 
 Deliverables
 ---------
-Lower level functionality to fetch tiles through HiPS...
-test-driven development...
-write docstrings and high-level documentation...
-design API...
-Most time will be spent around writing test cases...
+The work will revolve around writing a high and low level API. The high level API will provide functionality such as creating WCS and HEALPix images. The current API document is available at [https://github.com/tboch/hips/blob/master/notes/API-proposal.md](https://github.com/tboch/hips/blob/master/notes/API-proposal.md)
+Lower level functionality includes implementing in-memory and on-disk cache, in addition to basic input / output of HiPS tiles.
 
-example: https://github.com/astropy/regions
+Another major part of the project involves writing test cases, docstrings, and high-level documentation. The `Sphinx` documentation generator will be used. 
+
+The current algorithm for drawing lies here: [https://docs.google.com/document/d/1ooKTeaosHv6Bnovwfk2LOpvxi_PHLGgacz0uLnMtB38/edit?usp=sharing](https://docs.google.com/document/d/1ooKTeaosHv6Bnovwfk2LOpvxi_PHLGgacz0uLnMtB38/edit?usp=sharing)
 
 Development environment
 ---------
@@ -183,12 +163,12 @@ My current development environment include pip, Jupyer, IPython, PyCharm, Sublim
 
 | Time Period        | Plan           |
 | ------------- | ------------- |
-| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt`` (optional).</li><li>Discuss on what pattern should be followed for extracting documentation using an automated tool ``Sphinx``.</li><li>Iteratively publish code through pull requests.</li></ul>|
+| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt`` (optional).</li><li>Discuss on what pattern should be followed for extracting documentation using an automated tool ``Sphinx``.</li><li>Iteratively publish code through pull requests.</li><li>Write high level documentation.</li></ul>|
 | | **Part 1 starts** |
-| May 30, 2017 - June 15, 2017 ( 2 weeks ) | <ul><li>Write a skeleton layout of the algorithm / code to implement, assisstance will be provided by the mentors.</li><li>Iteratively publish code through pull requests.</li></ul> |
-| June 16, 2017 - June 30, 2017 ( 2 weeks ) | <ul><li>Document and write test cases using ``Pyest`` for the added part.</li></ul>|
+| May 30, 2017 - June 15, 2017 ( 2 weeks ) | <ul><li>Add functionality to fetch HiPS tiles.</li><li>Iteratively publish code through pull requests.</li></ul> |
+| June 16, 2017 - June 30, 2017 ( 2 weeks ) | <ul><li>Functionality for drawing HiPS tiles using various techniques.</li><li>Iteratively publish code through pull requests.</li></ul>|
 | | **Part 1 completed**<br />**Part 2 starts** |
-| July 01, 2017 - July 14, 2017 ( 2 weeks ) | <ul><li>Link the implemented part with GU interface (optional).</li><li>Add functionality that enables user to apply filters on images for better results.</li></ul> |
+| July 01, 2017 - July 14, 2017 ( 2 weeks ) | <ul><li>Link the implemented part with GU interface (optional).</li><li>Add helper functions for drawing catalogues.</li></ul> |
 | July 15, 2017 - July 28, 2017 ( 2 weeks ) | <ul><li>Add optimizations, write test cases.</li><li>Add support for HiPS catalogues (to be discussed).</li></ul> |
 | | **Part 2 completed** |
 | August 21, 2017 - August 29, 2017 **(Students Submit Code and Evaluations)** | <ul><li>Clean up code.</li><li>Improve documentation.</li><li>Add further test cases.</li><li>Code refactoring (if required).</li><li>Resolve merge conflicts (if any).</li></ul> |
@@ -198,3 +178,4 @@ My current development environment include pip, Jupyer, IPython, PyCharm, Sublim
 ## Availability ##
 
 My final exams end on May 20<sup>th</sup>. So, I will have ample time for the community bonding period. After that, I will be free during the whole summer i.e. almost three months. I do not have any other commitments, so I can focus all my attention to GSoC.
+
