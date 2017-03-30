@@ -11,6 +11,13 @@ from io import BytesIO
 
 
 def headerFITS(data):
+    """
+    Load FITS image header.
+    Parameters
+    ----------
+    data : np array
+        Array containing FITS image information
+    """
     hdu_list = fits.open(BytesIO(data))
     hdu = fits.PrimaryHDU(hdu_list[0].data)
     hdulist = fits.HDUList([hdu])

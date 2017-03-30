@@ -21,13 +21,21 @@ def ang2WCS(theta, phi, unit='radian'):
     return vector
 
 
-"""
-Fetch tile from a HiPS server. Performs conversion as well.
-
-"""
-
-
 def fetch(survey, url, geocentric_coords, order, **kwargs):
+    """
+    Fetch tile from a HiPS server. Performs conversion as well.
+    Parameters
+    ----------
+    survey : str
+        Suvery where HiPS is hosted
+    url : str
+        URL excluding survey
+    geocentric_coords : list(int)
+        Contains WCS coordinates 
+    order : int
+        HiPS order 
+    """
+
     # Rule followed: Tile N in order K -> NorderK / DirD / NpixN{.ext}
     nside = hp.order2nside(order)
     c = SkyCoord.from_name('crab')

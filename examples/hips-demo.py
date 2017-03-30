@@ -13,6 +13,7 @@ from hipstools.retrieve import tiles
 import matplotlib.pyplot as plt
 
 # define metadata
+print(tiles.fetch.__doc__)
 survey = '/2MASS6X/2MASS6X_H'
 geocentric_coords = [0.93085172744576927,
                      0.35906913416283726, 0.067708333333333329]
