@@ -91,7 +91,9 @@ HiPS addresses the challenge of big data in astronomy. It describes data in a mu
 
 Current progress
 ---------
-I wrote a Python script which fetches HiPS tiles and displays them using ``Matplotlib``. The calculation of ``Norder``, ``Npixels``, and ``Nside`` was done using ``Healpy``. The retrieved image was then bytes decoded using the ``BytesIO`` library.
+The repository for the current work done lies on GitHub (https://github.com/adl1995/HIPS-to-Py). This includes notes from the HiPS paper, and a package called ``hips-tools``. Apart from this there are numerous toy scripts that I wrote.
+
+Firstly, there's a Python script which fetches HiPS tiles and displays them using ``Matplotlib``. The calculation of ``Norder``, ``Npixels``, and ``Nside`` was done using ``Healpy``. The retrieved image was then bytes decoded using the ``BytesIO`` library.
 
 Another script I wrote retrieved a HiPS tile in JPG format and wrote it as a FITS map. This was achieved using Astropy's ``astropy.writeto`` method. The transformation / mapping of Geocentric coordinates onto a HiPS pixel was achieved using this
 ```python
