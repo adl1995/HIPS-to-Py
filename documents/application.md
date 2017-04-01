@@ -13,7 +13,7 @@ Student information
 * **GitHub handle**: adl1995
 * **IRC (#OpenAstronomy)**: adl1995
 * **Timezone**: UTC +05:00
-* **Blog**: http://adl1995.github.io/
+* **Blog**: [http://adl1995.github.io/](http://adl1995.github.io/)
 
 ### Academic details ###
 * **University**: National University of Computer and Emerging Sciences, Islamabad
@@ -27,7 +27,7 @@ In my previous semester, I enrolled myself in Digital Image Processing course. D
 
 Apart from this, I have also been a PHP web developer for almost two years, and I have worked on multitude of projects ranging for SaaS to e-commerce websites. I work remotely on [Upwork](https://www.upwork.com/freelancers/~018e56b8591046f889) and [Fiverr](https://www.fiverr.com/adl1995). My clients are either IT organizations or independent contractors. I have also worked on web automation and data scraping using ``Selenium`` and ``BeautifulSoup``. Although these skills are not required for this organization and have no direct links in my project, it shows that I am persistent and hard-working. The skills that I acquire are through self learning and consistency. Currently, I am building an application using [Google Application Engine](https://github.com/adl1995/zoho-portal).
 
-I started collaborating with Open Source organizations for only about a month ago, and my experience has been excellent so far. The mentors have been very kind, welcoming and have provided assistance along the way. Given my background in Computer Vision and being good at problem solving, I firmly believe this prestigious organization and its users will benefit by the HiPS client for Python. It would also provide me with a working ground knowledge on Astronomy.
+I started collaborating with Open Source organizations about a month ago, and my experience has been excellent so far. The mentors have been very kind, welcoming and have provided me with assistance along the way. Given my background in Computer Vision and being good at problem solving, I firmly believe this prestigious organization and its users will benefit by the HiPS client for Python. It would also provide me with a working ground knowledge on Astronomy.
 
 During the tenure of this project, I hope to improve my skills with tools like  ``Jupyter``, ``Pytest``, ``Sphinx``, and ``Git``. It will also provide me with a professional level overview on how to write applications, make plans, organize projects, working remotely with other developers, and design a good API.
 
@@ -52,6 +52,7 @@ The goal of this project would be to create a new HiPS client under ``tboch/hips
 * [Healpy](http://healpy.readthedocs.io/)
 
 Some other **possible dependencies** for tile drawing include:
+
 * [Reproject](http://reproject.readthedocs.io/en/stable/)
 * [SciPy](https://docs.scipy.org/doc/scipy/reference/tutorial/ndimage.html#interpolation-functions)
 
@@ -91,11 +92,11 @@ HiPS addresses the challenge of big data in astronomy. It describes data in a mu
 
 Current progress
 ---------
-The repository for the current work done lies on GitHub (https://github.com/adl1995/HIPS-to-Py). This includes notes from the HiPS paper, and a package called ``hips-tools``. Apart from it includes numerous test scripts I wrote.
+The repository for the current work done lies at GitHub (https://github.com/adl1995/HIPS-to-Py). This includes notes from the HiPS paper, and a package called ``hips-tools``. Apart from this it also includes numerous test scripts I wrote.
 
 Firstly, there's a Python script which fetches HiPS tiles and displays them using ``Matplotlib``. The calculation of ``Norder``, ``Npixels``, and ``Nside`` was done using ``Healpy``. The retrieved image was then bytes decoded using the ``BytesIO`` library.
 
-Another script I wrote retrieved a HiPS tile in JPG format and wrote it as a FITS map. This was achieved using Astropy's ``astropy.writeto`` method. The transformation / mapping of Geocentric coordinates onto a HiPS pixel was achieved using this
+For retrieving a HiPS tile in JPG format, there's a script named ``save-healpix-fits.py``. This fetches a tile and writes it as a FITS map. I achieved this using Astropy's ``astropy.writeto`` method. The transformation / mapping of Geocentric coordinates onto a HiPS pixel was achieved using this
 ```python
 theta, phi = hp.vec2ang(geocentric_coords)
 ```
@@ -123,54 +124,55 @@ Elapsed Time URLLib (with aiohttp): 2.4697625637054443
 Elapsed Time GRequests: 4.273705244064331
 ```
 
-The pros of ``grequests`` is that it takes less time when large number of requests have to be sent. But, ``urllib`` (with threading) gives a better response time when requests are numerous.
+The pros of ``grequests`` is that it takes less time when large number of requests have to be sent. But ``urllib`` (with threading) gives a better response time when requests are numerous.
 
 Using ``aiohttp`` with ``asyncio`` seems to be the best option. Its response time is almost 50% less than ``grequests``.
 
 Apart from this, I downloaded the Aladin desktop application and examined its various functionalities. It offers a tool for enabling HEALPix grid on the currently displayed image. This helped me better understand how to the grid gets divided at different zoom levels, and the relation between order and pixel numbers.
 
-Also, I have familiarized myself with how to do code formating, write test cases and documentation using the [regions](https://github.com/astropy/regions) package.
+Also, I have familiarized myself with how to do format code, write test cases and documentation using the [regions](https://github.com/astropy/regions) package.
 
 Communication
 -------------
 After a brief discussion with the mentors, the decision is to write progress report at the end of each day outlining the following
+
 * Amount of work done.
 * Ask question(s) / gain assistance concerning a feature that is causing hindrance in progress (if needed).
 * Schedule for next day.
-* Weekly hangouts where to assess status and make a plan for the next week (with 1 hour time investment for me to prepare a Google doc with questions and notes, and then a ~1 hour call with the mentors)
-* Daily summary, questions, and next day plans should be sent through email, and mentors will reply with feedback (with ~ 5 minute time investment for each)
+* Weekly hangouts where status will be assessed and plans will be made for the next week (with 1 hour time investment for me to prepare a Google doc with questions and notes, and then a ~1 hour call with the mentors).
+* Daily summary, questions, and next day plans should be sent through email, and mentors will reply with feedback (with ~ 5 minute time investment for each).
 
 Interaction will be mainly through GitHub or Skype chat.
 
 
 Method for publishing code
 -----------------------
-Keeping in view the above mentioned communication structure, at least one, usually several small pull requests per week (ideally, getting work merged by the end of the week) will be made in the ``tboch/hips`` repository.
+Keeping in view the above mentioned communication structure, at least one, usually several small pull requests per week (ideally, getting work merged by the end of the week) will be made to the ``tboch/hips`` repository.
 
 
 Deliverables
 ---------
-The work will revolve around writing a high and low level API. The high level API will provide functionality such as creating WCS and HEALPix images. The current API document is available at [https://github.com/tboch/hips/blob/master/notes/API-proposal.md](https://github.com/tboch/hips/blob/master/notes/API-proposal.md)
+The work will revolve around writing a high and low level API. The high level API will provide functionality such as creating WCS and HEALPix images. The current API document is available at [https://github.com/tboch/hips/blob/master/notes/API-proposal.md](https://github.com/tboch/hips/blob/master/notes/API-proposal.md).
 Lower level functionality includes implementing in-memory and on-disk cache, in addition to basic input / output of HiPS tiles.
 
 Another major part of the project involves writing test cases, docstrings, and high-level documentation. The `Sphinx` documentation generator will be used for this purpose. 
 
-The current algorithm for drawing tiles lies here: [https://docs.google.com/document/d/1ooKTeaosHv6Bnovwfk2LOpvxi_PHLGgacz0uLnMtB38/edit?usp=sharing](https://docs.google.com/document/d/1ooKTeaosHv6Bnovwfk2LOpvxi_PHLGgacz0uLnMtB38/edit?usp=sharing)
+The current algorithm for drawing tiles lies here: [https://docs.google.com/document/d/1ooKTeaosHv6Bnovwfk2LOpvxi_PHLGgacz0uLnMtB38/edit?usp=sharing](https://docs.google.com/document/d/1ooKTeaosHv6Bnovwfk2LOpvxi_PHLGgacz0uLnMtB38/edit?usp=sharing). For now the discussion is around two methods, one focusing on speed and the other on precision.
 
 Development environment
 ---------
-My current development environment includes pip, Jupyer, IPython, PyCharm, and Sublime.
+My current development environment includes pip, Jupyter, IPython, PyCharm, and Sublime.
 
 ## Timeline ##
 
 | Time Period        | Plan           |
 | ------------- | ------------- |
-| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt`` (optional).</li><li>Discuss on what pattern should be followed for extracting documentation using an automated tool ``Sphinx``.</li><li>Iteratively publish code through pull requests.</li><li>Write high level documentation.</li></ul>|
+| May 04, 2017 - May 30, 2017 **(Community Bonding Period)**      |   <ul><li>Discuss with mentors on which Python package to use for GUI implementation, for example ``PyQt`` (optional).</li><li>Discuss on what pattern should be followed for extracting documentation using an automated tool ``Sphinx``.</li><li>Finalize on the tile drawing algorithm to be followed.</li></ul>|
 | | **Part 1 starts** |
 | May 30, 2017 - June 15, 2017 ( 2 weeks ) | <ul><li>Add functionality to fetch HiPS tiles.</li><li>Iteratively publish code through pull requests.</li></ul> |
 | June 16, 2017 - June 30, 2017 ( 2 weeks ) | <ul><li>Functionality for drawing HiPS tiles using various techniques.</li><li>Iteratively publish code through pull requests.</li></ul>|
 | | **Part 1 completed**<br />**Part 2 starts** |
-| July 01, 2017 - July 14, 2017 ( 2 weeks ) | <ul><li>Link the implemented part with GU interface (optional).</li><li>Add helper functions for drawing catalogues.</li></ul> |
+| July 01, 2017 - July 14, 2017 ( 2 weeks ) | <ul><li>Link the implemented part with GU interface (optional).</li><li>Add helper methods for drawing catalogues.</li></ul> |
 | July 15, 2017 - July 28, 2017 ( 2 weeks ) | <ul><li>Add optimizations, write test cases.</li><li>Add support for HiPS catalogues (to be discussed).</li></ul> |
 | | **Part 2 completed** |
 | August 21, 2017 - August 29, 2017 **(Students Submit Code and Evaluations)** | <ul><li>Clean up code.</li><li>Improve documentation.</li><li>Add further test cases.</li><li>Code refactoring (if required).</li><li>Resolve merge conflicts (if any).</li></ul> |
@@ -180,5 +182,7 @@ My current development environment includes pip, Jupyer, IPython, PyCharm, and S
 ## Availability ##
 
 My final exams end on May 20<sup>th</sup>. So, I will have ample time for the community bonding period. After that, I will be free during the whole summer i.e. almost three months. I do not have any other commitments, so I can focus all my attention to GSoC.
+
+
 
 

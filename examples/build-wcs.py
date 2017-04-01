@@ -6,8 +6,9 @@ from __future__ import division, print_function
 import numpy
 from astropy import wcs
 from astropy.io import fits
+import matplotlib.pyplot as plt
 
-# Create a new WCS object.  The number of axes must be set
+# Create a new WCS object. The number of axes must be set
 # from the start
 w = wcs.WCS(naxis=2)
 
@@ -16,8 +17,10 @@ w = wcs.WCS(naxis=2)
 w.wcs.crpix = [-234.75, 8.3393]
 w.wcs.cdelt = numpy.array([-0.066667, 0.066667])
 w.wcs.crval = [0, -90]
-w.wcs.ctype = ["RA---AIR", "DEC--AIR"]
+w.wcs.ctype = ["RA---CAR", "DEC--CAR"]
 w.wcs.set_pv([(2, 1, 45.0)])
+
+print("WCS object : ", w.wcs)
 
 # Some pixel coordinates of interest.
 pixcrd = numpy.array([[0, 0], [24, 38], [45, 98]], numpy.float_)
@@ -42,3 +45,14 @@ header = w.to_header()
 hdu = fits.PrimaryHDU(header=header)
 # Save to FITS file
 # hdu.writeto('test.fits')
+
+
+# Creating 512x512 numpy array filled with random values 
+image = numpy.random.rand(512,512)
+# plt.subplot(projection=wcs)
+plt.imshow(image)
+plt.grid(color='white', ls='solid')
+plt.xlabel('Galactic Longitude')
+plt.ylabel('Galactic Latitude')
+# plt.imshow(image)
+plt.show()
