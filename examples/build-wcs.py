@@ -47,10 +47,10 @@ hdu = fits.PrimaryHDU(header=header)
 # hdu.writeto('test.fits')
 
 
-# Creating 512x512 numpy array filled with random values 
-image = numpy.random.rand(512,512)
+# Creating 512x512 numpy array filled with random values
+image = numpy.random.rand(512, 512)
 # plt.subplot(projection=wcs)
-plt.imshow(image)
+plt.imshow(image, vmin=-2.e-5, vmax=2.e-4, origin='lower')
 plt.grid(color='white', ls='solid')
 plt.xlabel('Galactic Longitude')
 plt.ylabel('Galactic Latitude')

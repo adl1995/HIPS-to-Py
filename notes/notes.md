@@ -1,7 +1,6 @@
 **Hierarchical progressive surveys (HiPS)**
 ===================
 
-
 Overview
 -
 HiPS utilizes the HEALPix framework and uses it for mapping a sphere (in our case, part of a sky) and compiles / transforms it into tiles and pixels. Of course, this is in context of astronomical data. HiPS emphasizes on usability thus it tries abstract the scientific details (while preserving them). This can be further built upon for statistical analysis of large datasets.
