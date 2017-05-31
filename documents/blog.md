@@ -24,6 +24,8 @@ In this scheme the pixels are counted down from north to south along each iso-la
  - **NESTED scheme**
  This scheme arranges the pixels into 12 tree structures with respect to their base-resolution pixels.
 
+![HEALPix projection](https://github.com/adl1995/HIPS-to-Py/blob/master/images/HEALPix_projection_SW.svg)
+
 ### Introduction to HiPS
 
 HiPS is the hierarchical tiling mechanism which allows one to access, visualize and browse seamlessly image, catalogue and cube data. The original HiPS paper can be found [here](https://arxiv.org/pdf/1505.02291.pdf).
@@ -41,7 +43,9 @@ This is usually the same value as the BITPIX value of the original images (descr
 The BITPIX value is always present in the HiPS FITS tiles.
 ### HiPS tiles
 As it is cumbersome to transfer each pixel (essentially a file), so HiPS scheme groups pixels into different tiles. The general relationship between the tiles and pixels is that a tile with *n*-tile pixels along each
-side forms a HEALPix mesh of order of *k*-tile.
+side forms a HEALPix mesh of order of *k*-tile. An 
+
+![A HiPS tile](https://github.com/adl1995/HIPS-to-Py/blob/master/images/hips-tile.jpg)
 
 ### HiPS images
 
