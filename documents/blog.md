@@ -24,7 +24,7 @@ In this scheme the pixels are counted down from north to south along each iso-la
  - **NESTED scheme**
  This scheme arranges the pixels into 12 tree structures with respect to their base-resolution pixels.
 
-![HEALPix projection](https://github.com/adl1995/HIPS-to-Py/blob/master/images/HEALPix_projection_SW.svg)
+![HEALPix projection](https://github.com/adl1995/HIPS-to-Py/blob/master/images/HEALPix_projection_SW.png)
 
 ### Introduction to HiPS
 
