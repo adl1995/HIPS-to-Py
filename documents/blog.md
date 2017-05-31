@@ -43,7 +43,7 @@ This is usually the same value as the BITPIX value of the original images (descr
 The BITPIX value is always present in the HiPS FITS tiles.
 ### HiPS tiles
 As it is cumbersome to transfer each pixel (essentially a file), so HiPS scheme groups pixels into different tiles. The general relationship between the tiles and pixels is that a tile with *n*-tile pixels along each
-side forms a HEALPix mesh of order of *k*-tile. An 
+side forms a HEALPix mesh of order of *k*-tile. A HiPS tile is show below.
 
 ![A HiPS tile](https://github.com/adl1995/HIPS-to-Py/blob/master/images/hips-tile.jpg)
 
