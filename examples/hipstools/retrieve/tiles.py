@@ -14,7 +14,6 @@ Transform a given angle (theta, phi) to the World Coordinate System.
 
 """
 
-
 def ang2WCS(theta, phi, unit='radian'):
     if (unit is 'radian'):
         vector = hp.ang2vec(theta, phi)
